@@ -1,0 +1,122 @@
+/* src/styles/crm-theme.css
+   ──────────────────────────────────────────────────────────────────────────
+   PuneDriver CRM — Design System
+   Soft sky blue + white theme. Import this ONCE in CRMLayout.tsx (or main.tsx)
+   so every CRM page shares the same tokens.
+
+   Usage in components: use Tailwind arbitrary values referencing these vars,
+   e.g. className="bg-[var(--bg-surface)] text-[var(--text-primary)]"
+   or just use the plain CSS classes defined at the bottom of this file.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Backgrounds ────────────────────────────────────────────────────────── */
+  --bg-page:        #F7FAFC;   /* barely-blue white page background */
+  --bg-surface:      #FFFFFF;   /* card surfaces */
+  --bg-soft:         #EFF6FC;   /* hover / active tint */
+  --bg-sidebar:      #FFFFFF;
+
+  /* ── Blue ramp (the "soft sky blue") ───────────────────────────────────── */
+  --blue-50:         #EAF4FD;
+  --blue-100:        #D3E9FB;
+  --blue-300:        #8FC4F0;
+  --blue-500:        #4A9DE0;
+  --blue-600:        #2B7FC4;
+  --blue-700:        #1D63A0;   /* primary action blue */
+  --blue-900:        #0F3D63;
+
+  /* ── Text ───────────────────────────────────────────────────────────────── */
+  --text-primary:    #1A2433;
+  --text-secondary:  #5A6B7D;
+  --text-tertiary:   #94A3B3;
+
+  /* ── Borders ────────────────────────────────────────────────────────────── */
+  --border-soft:     #E4EBF1;
+  --border-mid:      #D3DEE8;
+
+  /* ── Semantic status colors ─────────────────────────────────────────────── */
+  --green-bg:        #E8F5EE;  --green-text:  #1E7A4C;  --green-dot: #4CAF7D;
+  --amber-bg:        #FDF3E2;  --amber-text:  #92650F;  --amber-dot: #E8A23B;
+  --red-bg:          #FCEAEA;  --red-text:    #B23A3A;  --red-dot:   #D9534F;
+  --purple-bg:       #F1EDFB;  --purple-text: #6B4FBF;  --purple-dot:#8B6FE0;
+  --cyan-bg:         #E5F7FA;  --cyan-text:   #1A7E91;  --cyan-dot:  #2BB7C9;
+
+  /* ── Radius & shadow ────────────────────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-card: 0 1px 2px rgba(16, 42, 67, 0.04), 0 1px 8px rgba(16, 42, 67, 0.04);
+}
+
+/* ── Shared component classes (optional helpers) ─────────────────────────── */
+
+.crm-page-bg     { background: var(--bg-page); }
+.crm-surface     { background: var(--bg-surface); border: 1px solid var(--border-soft); }
+.crm-panel       {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.crm-stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-top: 3px solid var(--blue-500);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+}
+.crm-stat-card.green  { border-top-color: var(--green-dot); }
+.crm-stat-card.amber  { border-top-color: var(--amber-dot); }
+.crm-stat-card.purple { border-top-color: var(--purple-dot); }
+.crm-stat-card.red    { border-top-color: var(--red-dot); }
+.crm-stat-card.cyan   { border-top-color: var(--cyan-dot); }
+
+.crm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.crm-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+.crm-badge.pending    { background: var(--amber-bg);  color: var(--amber-text); }
+.crm-badge.pending::before    { background: var(--amber-dot); }
+.crm-badge.confirmed  { background: var(--blue-50);   color: var(--blue-700); }
+.crm-badge.confirmed::before  { background: var(--blue-500); }
+.crm-badge.assigned   { background: var(--purple-bg); color: var(--purple-text); }
+.crm-badge.assigned::before   { background: var(--purple-dot); }
+.crm-badge.trip       { background: var(--cyan-bg);   color: var(--cyan-text); }
+.crm-badge.trip::before       { background: var(--cyan-dot); }
+.crm-badge.completed  { background: var(--green-bg);  color: var(--green-text); }
+.crm-badge.completed::before  { background: var(--green-dot); }
+.crm-badge.cancelled  { background: var(--red-bg);    color: var(--red-text); }
+.crm-badge.cancelled::before  { background: var(--red-dot); }
+
+.crm-pulse-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: crm-pulse 2s infinite;
+}
+@keyframes crm-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.crm-action-btn {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--blue-50);
+  color: var(--blue-700);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+}
+.crm-action-btn:hover { background: var(--blue-700); color: white; }
